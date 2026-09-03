@@ -3,353 +3,479 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roopak Reddy — Software Developer</title>
-<meta name="description" content="Roopak Reddy — Python developer building backend systems, APIs, and ML-powered projects.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+<title>Roopak Reddy — Backend &amp; ERPNext Developer</title>
+<meta name="description" content="Roopak Reddy — Backend developer building Python/FastAPI microservices, Kafka event-driven systems, and ERPNext/Frappe automation.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9A%A1</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b1120; --bg-alt:#111a2e; --card:#141e33; --card-hi:#1b2740;
-    --text:#e7ecf7; --text-dim:#9aa7c2; --line:#25324d;
-    --accent:#5eead4; --accent2:#818cf8; --accent-grad:linear-gradient(135deg,#5eead4,#818cf8);
+    --bg:#070b14; --bg-soft:#0c1220; --panel:rgba(255,255,255,0.04); --panel-hi:rgba(255,255,255,0.07);
+    --border:rgba(255,255,255,0.09); --text:#eef1fb; --muted:#93a0bd;
+    --accent:#7dd3fc; --accent2:#a78bfa; --accent3:#f472b6;
+    --grad: linear-gradient(135deg,var(--accent),var(--accent2));
+    --radius:18px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    margin:0; background:var(--bg); color:var(--text);
-    font-family:'Inter',system-ui,sans-serif; line-height:1.6;
-    -webkit-font-smoothing:antialiased;
+    margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:hidden; position:relative;
   }
-  h1,h2,h3,.brand{font-family:'Space Grotesk',sans-serif}
+  h1,h2,h3,.logo{font-family:'Sora',sans-serif}
   a{color:inherit}
-  .wrap{max-width:1040px; margin:0 auto; padding:0 24px}
-  section{padding:88px 0}
+  img{max-width:100%}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px}
+  section{padding:100px 0; position:relative}
 
-  /* nav */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(11,17,32,0.85); backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
+  /* ambient orbs */
+  .orb{position:fixed; border-radius:50%; filter:blur(90px); z-index:0; pointer-events:none}
+  .orb-a{width:480px; height:480px; top:-160px; left:-140px; background:rgba(125,211,252,0.16)}
+  .orb-b{width:520px; height:520px; top:30%; right:-200px; background:rgba(167,139,250,0.14)}
+  .orb-c{width:420px; height:420px; bottom:-180px; left:20%; background:rgba(244,114,182,0.10)}
+
+  header{position:sticky; top:0; z-index:80; background:rgba(7,11,20,0.72); backdrop-filter:blur(14px); border-bottom:1px solid var(--border)}
   nav.wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 24px}
-  .brand{font-weight:700; font-size:18px; letter-spacing:0.3px}
-  .brand span{background:var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .navlinks{display:flex; gap:28px; font-size:14px; font-weight:500}
-  .navlinks a{color:var(--text-dim); text-decoration:none; transition:color .2s}
-  .navlinks a:hover{color:var(--text)}
-  .navlinks a.cta{
-    color:#0b1120; background:var(--accent-grad); padding:8px 16px; border-radius:8px; font-weight:600;
+  .logo{font-weight:700; font-size:19px}
+  .logo span{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .navlinks{display:flex; align-items:center; gap:26px; font-size:14px; font-weight:500}
+  .navlinks a{color:var(--muted); text-decoration:none; transition:color .2s}
+  .navlinks a:hover, .navlinks a.active{color:var(--text)}
+  .navlinks a.cta{color:#061018; background:var(--grad); padding:9px 18px; border-radius:999px; font-weight:600}
+  #menu-icon{display:none; font-size:26px; cursor:pointer; color:var(--text)}
+  @media (max-width:820px){
+    .navlinks{position:fixed; inset:64px 0 auto 0; background:rgba(7,11,20,0.97); flex-direction:column;
+      padding:26px 24px; gap:20px; border-bottom:1px solid var(--border); transform:translateY(-130%); transition:transform .3s}
+    .navlinks.show{transform:translateY(0)}
+    #menu-icon{display:block}
   }
-  @media (max-width:640px){ .navlinks a:not(.cta){display:none} }
 
   /* hero */
-  .hero{padding:110px 0 90px; position:relative; overflow:hidden}
-  .hero::before{
-    content:""; position:absolute; top:-120px; right:-120px; width:420px; height:420px;
-    background:radial-gradient(circle,rgba(94,234,212,0.18),transparent 70%); filter:blur(10px);
-  }
+  .hero{padding:88px 0 60px; z-index:1}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:50px; align-items:center}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr} }
   .eyebrow{
-    display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--accent);
-    background:rgba(94,234,212,0.08); border:1px solid rgba(94,234,212,0.25);
-    padding:6px 14px; border-radius:999px; margin-bottom:22px;
+    display:inline-flex; align-items:center; gap:9px; font-size:13px; color:var(--accent);
+    background:rgba(125,211,252,0.08); border:1px solid rgba(125,211,252,0.28); padding:7px 15px;
+    border-radius:999px; margin-bottom:24px;
   }
-  .hero h1{font-size:clamp(34px,5.5vw,54px); margin:0 0 14px; line-height:1.1}
-  .hero p.lead{font-size:18px; color:var(--text-dim); max-width:600px; margin:0 0 30px}
-  .btn-row{display:flex; gap:14px; flex-wrap:wrap}
-  .btn{
-    display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:10px;
-    text-decoration:none; font-weight:600; font-size:14.5px; transition:transform .15s, box-shadow .15s;
-  }
-  .btn-primary{background:var(--accent-grad); color:#081018}
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(94,234,212,0.18)}
-  .btn-ghost{border:1px solid var(--line); color:var(--text)}
+  .eyebrow .dot{width:7px; height:7px; border-radius:50%; background:#34d399; box-shadow:0 0 0 4px rgba(52,211,153,0.18)}
+  .hero h1{font-size:clamp(32px,5.2vw,52px); margin:0 0 8px; line-height:1.12}
+  .hero h1 span{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .typed-line{font-size:clamp(17px,2.4vw,21px); color:var(--muted); font-weight:500; margin:0 0 20px; min-height:28px}
+  .typed-line #typed{color:var(--accent2); font-weight:600}
+  .cursor{opacity:1; animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero p.lead{font-size:16px; color:var(--muted); max-width:560px; margin:0 0 32px}
+  .btn-row{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:12px; text-decoration:none;
+    font-weight:600; font-size:14.5px; transition:transform .15s, box-shadow .15s, border-color .15s}
+  .btn-primary{background:var(--grad); color:#061018}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(125,211,252,0.22)}
+  .btn-ghost{border:1px solid var(--border); color:var(--text); background:var(--panel)}
   .btn-ghost:hover{border-color:var(--accent2); transform:translateY(-2px)}
+  .stat-row{display:flex; gap:36px; flex-wrap:wrap}
+  .stat b{display:block; font-family:'Sora',sans-serif; font-size:26px}
+  .stat span{color:var(--muted); font-size:13px}
 
-  /* section headers */
-  .kicker{color:var(--accent); font-size:13px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin:0 0 8px}
-  .sec-title{font-size:28px; margin:0 0 36px}
+  .hero-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:24px; padding:34px;
+    backdrop-filter:blur(10px); position:relative;
+  }
+  .hero-card .avatar-badge{
+    width:64px; height:64px; border-radius:16px; background:var(--grad); display:flex; align-items:center;
+    justify-content:center; font-size:28px; margin-bottom:20px;
+  }
+  .hero-card h3{margin:0 0 6px; font-size:18px}
+  .hero-card p{color:var(--muted); font-size:13.5px; margin:0 0 18px}
+  .mini-chip-row{display:flex; flex-wrap:wrap; gap:8px}
+  .mini-chip{background:var(--panel-hi); border:1px solid var(--border); font-size:12px; padding:6px 12px; border-radius:999px; color:var(--text)}
+
+  .kicker{color:var(--accent); font-size:13px; font-weight:600; letter-spacing:1.6px; text-transform:uppercase; margin:0 0 10px}
+  .sec-title{font-size:30px; margin:0 0 14px}
+  .sec-sub{color:var(--muted); font-size:15px; max-width:560px; margin:0 0 44px}
+
+  /* focus cards */
+  .focus-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px}
+  .focus-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:28px; transition:transform .2s, border-color .2s}
+  .focus-card:hover{transform:translateY(-4px); border-color:var(--accent2)}
+  .focus-card .ic{width:48px; height:48px; border-radius:13px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:18px; background:linear-gradient(135deg,rgba(125,211,252,0.18),rgba(167,139,250,0.18)); color:var(--accent)}
+  .focus-card h3{margin:0 0 8px; font-size:16.5px}
+  .focus-card p{color:var(--muted); font-size:13.8px; margin:0}
 
   /* about */
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:40px}
-  @media (max-width:760px){ .about-grid{grid-template-columns:1fr} }
-  .about-grid p{color:var(--text-dim); margin:0 0 16px}
-  .fact-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px}
-  .fact-card dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:10px 14px; font-size:14px}
-  .fact-card dt{color:var(--text-dim)}
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:44px; align-items:start}
+  @media (max-width:820px){ .about-grid{grid-template-columns:1fr} }
+  .about-grid p{color:var(--muted); margin:0 0 16px; font-size:15px}
+  .fact-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:24px}
+  .fact-card dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:12px 16px; font-size:14px}
+  .fact-card dt{color:var(--muted)}
   .fact-card dd{margin:0; font-weight:600}
+  .fact-card a{color:var(--accent)}
+
+  /* journey timeline */
+  .timeline{position:relative; padding-left:28px; border-left:2px solid var(--border)}
+  .tl-item{position:relative; padding-bottom:36px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-dot{position:absolute; left:-35px; top:2px; width:16px; height:16px; border-radius:50%; background:var(--grad); box-shadow:0 0 0 5px rgba(125,211,252,0.12)}
+  .tl-card{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:22px 26px}
+  .tl-date{color:var(--accent); font-size:12.5px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; margin-bottom:6px}
+  .tl-card h3{margin:0 0 3px; font-size:17px}
+  .tl-card .org{color:var(--muted); font-size:13.5px; margin-bottom:12px}
+  .tl-card ul{margin:0; padding-left:18px; color:var(--muted); font-size:14px}
+  .tl-card li{margin-bottom:6px}
 
   /* skills */
-  .skill-groups{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px}
-  .skill-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px}
-  .skill-card h3{margin:0 0 14px; font-size:15px; color:var(--accent2)}
-  .chips{display:flex; flex-wrap:wrap; gap:8px}
-  .chip{
-    background:var(--card-hi); border:1px solid var(--line); color:var(--text);
-    font-size:13px; padding:6px 12px; border-radius:999px;
-  }
-
-  /* experience */
-  .timeline-item{
-    background:var(--card); border:1px solid var(--line); border-radius:14px;
-    padding:26px 28px; margin-bottom:20px;
-  }
-  .timeline-item .role-row{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:14px}
-  .timeline-item h3{margin:0; font-size:18px}
-  .timeline-item .org{color:var(--accent); font-weight:500; font-size:14.5px}
-  .timeline-item .date{color:var(--text-dim); font-size:13.5px; white-space:nowrap}
-  .timeline-item ul{margin:0; padding-left:20px; color:var(--text-dim); font-size:14.5px}
-  .timeline-item li{margin-bottom:8px}
+  .skill-groups{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px}
+  .skill-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:24px}
+  .skill-card h3{margin:0 0 16px; font-size:14.5px; color:var(--accent2); display:flex; align-items:center; gap:8px}
+  .chips{display:flex; flex-wrap:wrap; gap:9px}
+  .chip{background:var(--panel-hi); border:1px solid var(--border); font-size:13px; padding:7px 13px; border-radius:999px; display:flex; align-items:center; gap:6px}
 
   /* projects */
   .proj-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px}
-  .proj-card{
-    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px;
-    display:flex; flex-direction:column; transition:border-color .2s, transform .2s;
-  }
-  .proj-card:hover{border-color:var(--accent2); transform:translateY(-3px)}
-  .proj-card h3{margin:0 0 10px; font-size:17px}
-  .proj-card p{color:var(--text-dim); font-size:14px; flex:1; margin:0 0 14px}
+  .proj-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:26px; display:flex; flex-direction:column; transition:transform .2s, border-color .2s}
+  .proj-card:hover{transform:translateY(-4px); border-color:var(--accent)}
+  .proj-tag{font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--accent); font-weight:700; margin-bottom:10px}
+  .proj-card h3{margin:0 0 10px; font-size:17.5px}
+  .proj-card p{color:var(--muted); font-size:14px; flex:1; margin:0 0 18px}
   .proj-card .chips{margin-top:auto}
-  .proj-card .chip{font-size:11.5px; padding:4px 10px}
+  .proj-card .chip{font-size:11.5px; padding:5px 11px}
 
-  /* education & certs */
-  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:40px}
-  @media (max-width:760px){ .two-col{grid-template-columns:1fr} }
-  .edu-item{margin-bottom:18px; padding-bottom:18px; border-bottom:1px solid var(--line)}
-  .edu-item:last-child{border-bottom:none}
-  .edu-item h3{margin:0 0 4px; font-size:15.5px}
-  .edu-item .meta{color:var(--text-dim); font-size:13.5px}
-  .cert-list{list-style:none; margin:0; padding:0}
-  .cert-list li{
-    display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); font-size:14.5px;
-  }
-  .cert-list li:last-child{border-bottom:none}
-  .cert-list .dot{width:6px; height:6px; border-radius:50%; background:var(--accent-grad); flex:none}
+  /* contact */
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  @media (max-width:760px){ .contact-grid{grid-template-columns:1fr} }
+  .contact-card{background:var(--panel); border:1px solid var(--border); border-radius:16px; padding:24px; display:flex; gap:16px; align-items:center; text-decoration:none; transition:transform .2s, border-color .2s}
+  .contact-card:hover{transform:translateY(-3px); border-color:var(--accent2)}
+  .contact-card .ic{width:46px; height:46px; border-radius:12px; background:var(--grad); color:#061018; display:flex; align-items:center; justify-content:center; font-size:20px; flex:none}
+  .contact-card b{display:block; font-size:14.5px}
+  .contact-card span{color:var(--muted); font-size:13px}
+  .cta-banner{background:linear-gradient(135deg, rgba(125,211,252,0.10), rgba(167,139,250,0.10)); border:1px solid var(--border); border-radius:24px; padding:48px; text-align:center; margin-bottom:40px}
+  .cta-banner h2{margin:0 0 10px; font-size:26px}
+  .cta-banner p{color:var(--muted); margin:0 0 26px}
 
-  /* contact / footer */
-  .contact-card{
-    background:linear-gradient(135deg, rgba(94,234,212,0.08), rgba(129,140,248,0.08));
-    border:1px solid var(--line); border-radius:18px; padding:48px; text-align:center;
-  }
-  .contact-card h2{margin:0 0 10px; font-size:26px}
-  .contact-card p{color:var(--text-dim); margin:0 0 26px}
-  footer{border-top:1px solid var(--line); padding:28px 0; text-align:center; color:var(--text-dim); font-size:13.5px}
+  footer{border-top:1px solid var(--border); padding:30px 0; text-align:center; color:var(--muted); font-size:13.5px; position:relative; z-index:1}
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1; transform:none}
 </style>
 </head>
 <body>
 
+<div class="orb orb-a"></div>
+<div class="orb orb-b"></div>
+<div class="orb orb-c"></div>
+
 <header>
   <nav class="wrap">
-    <div class="brand">Roopak<span>.dev</span></div>
-    <div class="navlinks">
+    <a href="#home" class="logo">Roopak<span>.dev</span></a>
+    <div class="navlinks" id="navlinks">
+      <a href="#home">Home</a>
+      <a href="#focus">Focus</a>
       <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
-      <a href="Roopak_Reddy_Resume.pdf" class="cta" target="_blank" rel="noopener">Resume</a>
+      <a href="#journey">Journey</a>
+      <a href="#skills">Stack</a>
+      <a href="#projects">Work</a>
+      <a href="#contact" class="cta">Contact me</a>
     </div>
+    <div id="menu-icon" class="bx bx-menu"></div>
   </nav>
 </header>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="eyebrow">● Available for opportunities</div>
-    <h1>Hi, I'm Roopak Reddy — <br>a Python developer who builds backend systems that hold up.</h1>
-    <p class="lead">B.Tech CSE (AI &amp; ML) graduate building scalable, event-driven backend systems with FastAPI,
-    Kafka, Docker, and AWS, and automating business workflows on ERPNext/Frappe. Comfortable across Python, Java,
-    and JavaScript, with hands-on experience shipping production microservices and ML-powered side projects.</p>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="Roopak_Reddy_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
-      <a class="btn btn-ghost" href="mailto:droopakreddy@gmail.com">Email me</a>
-      <a class="btn btn-ghost" href="https://github.com/roopak1234" target="_blank" rel="noopener">View GitHub</a>
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Open to Backend / Software Developer roles</div>
+      <h1>Hi, I'm <span>Roopak Reddy</span></h1>
+      <div class="typed-line">I build <span id="typed"></span><span class="cursor">|</span></div>
+      <p class="lead">B.Tech CSE (AI &amp; ML) graduate building scalable, event-driven backend systems with
+      Python, FastAPI, and Kafka, and automating business workflows on ERPNext/Frappe. Currently a Software
+      Developer at ThinkCampus Pvt Ltd, Hyderabad.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="mailto:droopakreddy@gmail.com"><i class='bx bxs-briefcase'></i> Hire Me</a>
+        <a class="btn btn-ghost" href="Roopak_Reddy_Resume.pdf" target="_blank" rel="noopener"><i class='bx bxs-file-pdf'></i> Resume</a>
+        <a class="btn btn-ghost" href="https://github.com/roopak1234" target="_blank" rel="noopener"><i class='bx bxl-github'></i> GitHub</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>4+</b><span>Projects Shipped</span></div>
+        <div class="stat"><b>1+</b><span>Year of Experience</span></div>
+        <div class="stat"><b>2025</b><span>B.Tech CSE (AI &amp; ML)</span></div>
+      </div>
+    </div>
+    <div class="hero-card reveal">
+      <div class="avatar-badge">⚡</div>
+      <h3>Currently building at ThinkCampus</h3>
+      <p>Python microservices, Kafka event pipelines, and ERPNext/Frappe automation — shipped to production.</p>
+      <div class="mini-chip-row">
+        <span class="mini-chip">FastAPI</span><span class="mini-chip">Kafka</span>
+        <span class="mini-chip">Docker</span><span class="mini-chip">AWS</span>
+        <span class="mini-chip">ERPNext</span><span class="mini-chip">PostgreSQL</span>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="about">
+<section id="focus">
   <div class="wrap">
-    <div class="kicker">About</div>
-    <h2 class="sec-title">A quick summary</h2>
-    <div class="about-grid">
-      <div>
-        <p>I'm a B.Tech CSE (Artificial Intelligence &amp; Machine Learning) graduate from CMR College of
-        Engineering and Technology, based in Hyderabad. I work across the stack — from designing scalable Python
-        microservices with FastAPI and Kafka, to extending ERPNext/Frappe with custom workflows, to building ML
-        pipelines for text classification.</p>
-        <p>As a Software Developer at ThinkCampus, I build loosely-coupled, high-performance distributed
-        applications using FastAPI, Flask, Docker, and AWS, with Apache Kafka handling high-volume event streams
-        for policy, claims, and notification workflows. I also extend ERPNext with custom Frappe DocTypes, server
-        scripts, and REST APIs. I care about writing code that's easy for the next person to understand and
-        maintain — not just code that works.</p>
+    <div class="kicker">What I Do</div>
+    <h2 class="sec-title reveal">Where I focus</h2>
+    <p class="sec-sub reveal">Four areas I keep coming back to, on the job and in side projects.</p>
+    <div class="focus-grid">
+      <div class="focus-card reveal">
+        <div class="ic"><i class='bx bx-server'></i></div>
+        <h3>Backend Development</h3>
+        <p>Designing REST APIs and scalable microservices with Python, FastAPI, and Flask.</p>
       </div>
-      <div class="fact-card">
+      <div class="focus-card reveal">
+        <div class="ic"><i class='bx bx-git-branch'></i></div>
+        <h3>ERPNext &amp; Frappe</h3>
+        <p>Custom DocTypes, server scripts, and REST APIs to automate real business workflows.</p>
+      </div>
+      <div class="focus-card reveal">
+        <div class="ic"><i class='bx bx-network-chart'></i></div>
+        <h3>Distributed &amp; Event-Driven Systems</h3>
+        <p>Apache Kafka, Docker, and AWS for reliable, high-volume asynchronous processing.</p>
+      </div>
+      <div class="focus-card reveal">
+        <div class="ic"><i class='bx bx-brain'></i></div>
+        <h3>Applied Machine Learning</h3>
+        <p>NLP pipelines and classical ML (scikit-learn) for real classification problems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="kicker">About Me</div>
+    <h2 class="sec-title reveal">A quick summary</h2>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I'm a B.Tech CSE (Artificial Intelligence &amp; Machine Learning) graduate from CMR College of
+        Engineering and Technology, based in Hyderabad. I work across the stack — from designing scalable
+        Python microservices with FastAPI and Kafka, to extending ERPNext/Frappe with custom business logic,
+        to building ML pipelines for text classification.</p>
+        <p>As a Software Developer at ThinkCampus, I build loosely-coupled, high-performance distributed
+        applications using FastAPI, Flask, Docker, and AWS, with Apache Kafka handling high-volume event
+        streams for policy, claims, and notification workflows. I also extend ERPNext with custom Frappe
+        DocTypes, server scripts, and REST APIs — and I care about writing code that's easy for the next
+        person to understand and maintain, not just code that works.</p>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Kafka</span>
+          <span class="chip">Docker</span><span class="chip">AWS</span><span class="chip">ERPNext</span>
+          <span class="chip">Frappe</span><span class="chip">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="fact-card reveal">
         <dl>
           <dt>Location</dt><dd>Hyderabad, India</dd>
-          <dt>Focus</dt><dd>Python &amp; Backend Systems</dd>
+          <dt>Focus</dt><dd>Backend &amp; ERPNext Systems</dd>
           <dt>Education</dt><dd>B.Tech CSE (AI &amp; ML), 2025</dd>
           <dt>Email</dt><dd><a href="mailto:droopakreddy@gmail.com">droopakreddy@gmail.com</a></dd>
+          <dt>Phone</dt><dd>+91 8008801626</dd>
         </dl>
       </div>
     </div>
   </div>
 </section>
 
-<section id="skills" style="background:var(--bg-alt)">
+<section id="journey">
   <div class="wrap">
-    <div class="kicker">Skills</div>
-    <h2 class="sec-title">What I work with</h2>
-    <div class="skill-groups">
-      <div class="skill-card">
-        <h3>Languages</h3>
-        <div class="chips">
-          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span>
-          <span class="chip">SQL</span><span class="chip">HTML</span><span class="chip">CSS</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h3>Frameworks &amp; Platforms</h3>
-        <div class="chips">
-          <span class="chip">ERPNext</span><span class="chip">Frappe</span><span class="chip">FastAPI</span>
-          <span class="chip">Flask</span><span class="chip">Docker</span><span class="chip">AWS</span>
-          <span class="chip">Kafka</span><span class="chip">PostgreSQL</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h3>Tools</h3>
-        <div class="chips">
-          <span class="chip">Git</span><span class="chip">VS Code</span><span class="chip">Jupyter Notebook</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h3>Also comfortable with</h3>
-        <div class="chips">
-          <span class="chip">REST API Design</span><span class="chip">Event-Driven Systems</span>
-          <span class="chip">NLP / ML basics</span><span class="chip">SDN &amp; Cloud Networking</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="wrap">
-    <div class="kicker">Experience</div>
-    <h2 class="sec-title">Where I've worked</h2>
-    <div class="timeline-item">
-      <div class="role-row">
-        <div>
+    <div class="kicker">My Journey</div>
+    <h2 class="sec-title reveal">Education &amp; Experience</h2>
+    <p class="sec-sub reveal">Where I've worked and studied.</p>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">Aug 2025 &ndash; Present</div>
           <h3>Software Developer</h3>
           <div class="org">ThinkCampus Pvt Ltd</div>
+          <ul>
+            <li>Built scalable Python microservices with FastAPI, Flask, Docker, and AWS.</li>
+            <li>Implemented Kafka-based event-driven processing for policy, claims, and notification workflows.</li>
+            <li>Extended ERPNext with custom Frappe DocTypes, server scripts, and REST APIs.</li>
+          </ul>
         </div>
-        <div class="date">Aug 2025 – Present</div>
       </div>
-      <ul>
-        <li>Designed and built scalable Python microservices using FastAPI, Flask, Docker, and AWS, enabling
-        loosely coupled, high-performance distributed applications.</li>
-        <li>Implemented asynchronous, event-driven processing with Apache Kafka to reliably handle high-volume,
-        distributed event streams for policy, claims, and notification workflows.</li>
-        <li>Extended ERPNext with custom Frappe DocTypes, server scripts, and REST APIs, applying
-        object-oriented design and Agile/SDLC practices across the development lifecycle.</li>
-        <li>Collaborated with cross-functional teams on system design and architecture discussions, debugging
-        production issues and delivering reliable, maintainable features.</li>
-        <li>Documented workflows and troubleshooting guides, and participated in code reviews to improve
-        backend performance and team self-sufficiency.</li>
-      </ul>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">2021 &ndash; 2025</div>
+          <h3>B.Tech, CSE (Artificial Intelligence &amp; Machine Learning)</h3>
+          <div class="org">CMR College of Engineering and Technology &middot; CGPA 7.07</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">2023 &ndash; 2025</div>
+          <h3>B.Tech Minor, CSE (Cyber Security)</h3>
+          <div class="org">CMR College of Engineering and Technology &middot; CGPA 8.03</div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-date">2019 &ndash; 2021</div>
+          <h3>Intermediate (MPC)</h3>
+          <div class="org">Sri Amogha Junior College &middot; 82.6%</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="projects" style="background:var(--bg-alt)">
+<section id="skills" style="background:var(--bg-soft)">
   <div class="wrap">
-    <div class="kicker">Projects</div>
-    <h2 class="sec-title">Things I've built</h2>
+    <div class="kicker">My Tech Stack</div>
+    <h2 class="sec-title reveal">Where I shine</h2>
+    <div class="skill-groups">
+      <div class="skill-card reveal">
+        <h3><i class='bx bx-code-alt'></i> Languages</h3>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span>
+          <span class="chip">C</span><span class="chip">C++</span><span class="chip">SQL</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><i class='bx bx-server'></i> Backend &amp; Platforms</h3>
+        <div class="chips">
+          <span class="chip">FastAPI</span><span class="chip">Flask</span><span class="chip">Docker</span>
+          <span class="chip">AWS</span><span class="chip">Kafka</span><span class="chip">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><i class='bx bx-git-branch'></i> ERP / Framework</h3>
+        <div class="chips">
+          <span class="chip">ERPNext</span><span class="chip">Frappe Framework</span>
+          <span class="chip">DocTypes &amp; Server Scripts</span><span class="chip">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><i class='bx bx-brain'></i> Data / ML</h3>
+        <div class="chips">
+          <span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">scikit-learn</span>
+          <span class="chip">NLP basics</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><i class='bx bx-wrench' ></i> Tools &amp; Practices</h3>
+        <div class="chips">
+          <span class="chip">Git</span><span class="chip">VS Code</span><span class="chip">Jupyter</span>
+          <span class="chip">Agile</span><span class="chip">SDLC</span><span class="chip">Code Reviews</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><i class='bx bx-certification' ></i> Certifications</h3>
+        <div class="chips">
+          <span class="chip">CISCO Python</span><span class="chip">Salesforce AI Associate</span>
+          <span class="chip">Zscaler Cybersecurity</span><span class="chip">Google Analytics</span>
+          <span class="chip">ERPNext — MaxMunus</span><span class="chip">Claude (Anthropic)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="kicker">My Projects</div>
+    <h2 class="sec-title reveal">Things I've built</h2>
+    <p class="sec-sub reveal">A mix of production integration work and personal/academic builds.</p>
     <div class="proj-grid">
-      <div class="proj-card">
-        <h3>Text Toxicity Detection</h3>
-        <p>NLP pipeline that identifies and categorizes harmful or abusive language in text using
-        tokenization, POS tagging, and ML classification (clustering, SVM) to improve moderation accuracy.</p>
-        <div class="chips">
-          <span class="chip">Python</span><span class="chip">NLP</span><span class="chip">ML</span>
-        </div>
-      </div>
-      <div class="proj-card">
-        <h3>SDN Load Balancing for Cloud Data Centers</h3>
-        <p>Load-balancing approach using an SDN controller to distribute traffic across servers, improving
-        availability and reducing latency with HAProxy, OpenStack, and SDN concepts.</p>
-        <div class="chips">
-          <span class="chip">SDN</span><span class="chip">HAProxy</span><span class="chip">OpenStack</span>
-        </div>
-      </div>
-      <div class="proj-card">
-        <h3>Enterprise E-Commerce Platform</h3>
-        <p>Bespoke, scalable e-commerce ecosystem on the Frappe framework with algorithmic product discovery,
-        dynamic merchandising, and custom RBAC authorization middleware separating internal and public flows.</p>
-        <div class="chips">
-          <span class="chip">Frappe</span><span class="chip">RBAC</span><span class="chip">Python</span>
-        </div>
-      </div>
-      <div class="proj-card">
+      <div class="proj-card reveal">
+        <div class="proj-tag">Backend / InsurTech</div>
         <h3>eBao InsurTech Platform Integration</h3>
-        <p>Python adapters and REST APIs connecting eBao Life II insurance services with FastAPI microservices,
-        Kafka event processing, and PostgreSQL schemas — cutting report generation time by 40%.</p>
+        <p>Python/FastAPI microservices integrating eBao Life II insurance APIs, using Kafka for reliable,
+        fault-tolerant event processing across policy, claims, and lapse workflows. Optimized PostgreSQL
+        schemas, cutting report generation time by 40%.</p>
         <div class="chips">
           <span class="chip">FastAPI</span><span class="chip">Kafka</span><span class="chip">PostgreSQL</span>
         </div>
       </div>
+      <div class="proj-card reveal">
+        <div class="proj-tag">ERPNext / Software Design</div>
+        <h3>Enterprise E-Commerce Platform</h3>
+        <p>Scalable e-commerce ecosystem on the Frappe Framework with custom product discovery, dynamic
+        merchandising, and role-based access control via custom authorization middleware.</p>
+        <div class="chips">
+          <span class="chip">Frappe</span><span class="chip">RBAC</span><span class="chip">Python</span>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-tag">Algorithms / ML</div>
+        <h3>Text Toxicity Detection</h3>
+        <p>NLP pipeline (tokenization, POS tagging) with ML classification (clustering, SVM) to detect toxic
+        content, balancing accuracy with computational efficiency.</p>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">NLP</span><span class="chip">scikit-learn</span>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-tag">Distributed Systems</div>
+        <h3>SDN Controller Load Balancing</h3>
+        <p>Load-balancing approach for an SDN controller distributing traffic across a simulated cloud data
+        center, using HAProxy strategies and OpenStack concepts to improve availability and reduce latency.</p>
+        <div class="chips">
+          <span class="chip">SDN</span><span class="chip">HAProxy</span><span class="chip">OpenStack</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="education">
+<section id="contact" style="background:var(--bg-soft)">
   <div class="wrap">
-    <div class="kicker">Education &amp; Certifications</div>
-    <h2 class="sec-title">Background</h2>
-    <div class="two-col">
-      <div>
-        <div class="edu-item">
-          <h3>B.Tech, CSE (Artificial Intelligence &amp; Machine Learning)</h3>
-          <div class="meta">CMR College of Engineering and Technology · CGPA 7.07 · 2021–2025</div>
-        </div>
-        <div class="edu-item">
-          <h3>B.Tech Minor, CSE (Cyber Security)</h3>
-          <div class="meta">CMR College of Engineering and Technology · CGPA 8.03 · 2023–2025</div>
-        </div>
-        <div class="edu-item">
-          <h3>Intermediate (MPC)</h3>
-          <div class="meta">Sri Amogha Junior College · 82.6% · 2019–2021</div>
-        </div>
-      </div>
-      <ul class="cert-list">
-        <li><span class="dot"></span>Cybersecurity Fundamentals Associate — Zscaler</li>
-        <li><span class="dot"></span>Python Certification — CISCO</li>
-        <li><span class="dot"></span>Certified AI Associate — Salesforce</li>
-        <li><span class="dot"></span>Google Analytics Certification</li>
-        <li><span class="dot"></span>ERPNext Completion Certificate — MaxMunus</li>
-        <li><span class="dot"></span>Claude (Anthropic) Certificate</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-card">
-      <h2>Let's work together</h2>
-      <p>Open to full-time Python / backend developer roles. Feel free to reach out.</p>
-      <div class="btn-row" style="justify-content:center">
-        <a class="btn btn-primary" href="mailto:droopakreddy@gmail.com">droopakreddy@gmail.com</a>
-        <a class="btn btn-ghost" href="https://github.com/roopak1234" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn btn-ghost" href="Roopak_Reddy_Resume.pdf" target="_blank" rel="noopener">Download Resume</a>
-      </div>
+    <div class="kicker">Contact Me</div>
+    <h2 class="sec-title reveal">Let's work together</h2>
+    <p class="sec-sub reveal">Open to full-time Backend / Software Developer and ERPNext / Frappe Developer roles.</p>
+    <div class="contact-grid">
+      <a class="contact-card reveal" href="mailto:droopakreddy@gmail.com">
+        <div class="ic"><i class='bx bx-envelope'></i></div>
+        <div><b>Email</b><span>droopakreddy@gmail.com</span></div>
+      </a>
+      <a class="contact-card reveal" href="tel:+918008801626">
+        <div class="ic"><i class='bx bx-phone'></i></div>
+        <div><b>Phone</b><span>+91 8008801626</span></div>
+      </a>
+      <a class="contact-card reveal" href="https://github.com/roopak1234" target="_blank" rel="noopener">
+        <div class="ic"><i class='bx bxl-github'></i></div>
+        <div><b>GitHub</b><span>github.com/roopak1234</span></div>
+      </a>
+      <a class="contact-card reveal" href="Roopak_Reddy_Resume.pdf" target="_blank" rel="noopener">
+        <div class="ic"><i class='bx bxs-file-pdf'></i></div>
+        <div><b>Resume</b><span>Download PDF</span></div>
+      </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">© 2026 Roopak Reddy. Built with HTML &amp; CSS, hosted on GitHub Pages.</div>
+  <div class="wrap">© <span id="year"></span> Roopak Reddy. Built with HTML &amp; CSS, hosted on GitHub Pages.</div>
 </footer>
+
+<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  new Typed('#typed', {
+    strings: ['scalable Python APIs', 'event-driven systems', 'ERPNext workflows', 'ML-powered tools'],
+    typeSpeed: 45, backSpeed: 25, backDelay: 1400, loop: true, showCursor: false
+  });
+
+  const menuIcon = document.getElementById('menu-icon');
+  const navlinks = document.getElementById('navlinks');
+  menuIcon.addEventListener('click', () => navlinks.classList.toggle('show'));
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('show')));
+
+  if (window.ScrollReveal) {
+    ScrollReveal().reveal('.reveal', { distance:'20px', duration:650, interval:80, origin:'bottom', easing:'ease-out' });
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
 
 </body>
 </html>
