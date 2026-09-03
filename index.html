@@ -156,8 +156,9 @@
   .cta-banner p{color:var(--muted); margin:0 0 26px}
 
   footer{border-top:1px solid var(--border); padding:30px 0; text-align:center; color:var(--muted); font-size:13.5px; position:relative; z-index:1}
-  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
-  .reveal.in{opacity:1; transform:none}
+  /* Visible by default so content never depends on JS running; only animate if IntersectionObserver kicks in. */
+  .reveal{opacity:1; transform:none; transition:opacity .6s ease, transform .6s ease}
+  .reveal.pre{opacity:0; transform:translateY(18px)}
 </style>
 </head>
 <body>
@@ -455,26 +456,52 @@
   <div class="wrap">© <span id="year"></span> Roopak Reddy. Built with HTML &amp; CSS, hosted on GitHub Pages.</div>
 </footer>
 
-<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js" defer></script>
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // Each block is isolated in try/catch so a blocked CDN script (ad-blockers, offline, etc.)
+  // can never take down the rest of the page or hide content that's already on screen.
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      document.getElementById('year').textContent = new Date().getFullYear();
+    } catch (e) {}
 
-  new Typed('#typed', {
-    strings: ['scalable Python APIs', 'event-driven systems', 'ERPNext workflows', 'ML-powered tools'],
-    typeSpeed: 45, backSpeed: 25, backDelay: 1400, loop: true, showCursor: false
+    try {
+      var typedEl = document.getElementById('typed');
+      if (typeof Typed !== 'undefined') {
+        new Typed('#typed', {
+          strings: ['scalable Python APIs', 'event-driven systems', 'ERPNext workflows', 'ML-powered tools'],
+          typeSpeed: 45, backSpeed: 25, backDelay: 1400, loop: true, showCursor: false
+        });
+      } else if (typedEl) {
+        typedEl.textContent = 'scalable Python APIs, event-driven systems, ERPNext workflows';
+      }
+    } catch (e) {}
+
+    try {
+      var menuIcon = document.getElementById('menu-icon');
+      var navlinks = document.getElementById('navlinks');
+      menuIcon.addEventListener('click', function () { navlinks.classList.toggle('show'); });
+      navlinks.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { navlinks.classList.remove('show'); });
+      });
+    } catch (e) {}
+
+    try {
+      var revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        revealEls.forEach(function (el) { el.classList.add('pre'); });
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('pre');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        revealEls.forEach(function (el) { io.observe(el); });
+      }
+    } catch (e) {}
   });
-
-  const menuIcon = document.getElementById('menu-icon');
-  const navlinks = document.getElementById('navlinks');
-  menuIcon.addEventListener('click', () => navlinks.classList.toggle('show'));
-  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('show')));
-
-  if (window.ScrollReveal) {
-    ScrollReveal().reveal('.reveal', { distance:'20px', duration:650, interval:80, origin:'bottom', easing:'ease-out' });
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-  }
 </script>
 
 </body>
