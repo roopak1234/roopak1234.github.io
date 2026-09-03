@@ -105,14 +105,32 @@
   .focus-card p{color:var(--muted); font-size:13.8px; margin:0}
 
   /* about */
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:44px; align-items:start}
-  @media (max-width:820px){ .about-grid{grid-template-columns:1fr} }
-  .about-grid p{color:var(--muted); margin:0 0 16px; font-size:15px}
-  .fact-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:24px}
-  .fact-card dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:12px 16px; font-size:14px}
-  .fact-card dt{color:var(--muted)}
-  .fact-card dd{margin:0; font-weight:600}
-  .fact-card a{color:var(--accent)}
+  .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .about-card{
+    background:linear-gradient(160deg, var(--panel), rgba(255,255,255,0.015));
+    border:1px solid var(--border); border-radius:28px; padding:4px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .about-inner{padding:48px 44px; max-width:720px; margin:0 auto; text-align:center}
+  .role-line{color:var(--accent2); font-weight:600; font-size:15px; margin-bottom:26px}
+  .avatar-wrap{display:flex; flex-direction:column; align-items:center; margin-bottom:28px}
+  .avatar-ring{
+    width:150px; height:150px; border-radius:50%; padding:5px;
+    background:var(--grad); margin-bottom:18px;
+  }
+  .avatar-ring svg{border-radius:50%; background:var(--bg-soft); display:block}
+  .social-row{display:flex; gap:12px}
+  .soc{
+    width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:var(--panel-hi); border:1px solid var(--border); font-size:17px; text-decoration:none;
+    transition:transform .15s, border-color .15s, color .15s;
+  }
+  .soc:hover{transform:translateY(-3px); border-color:var(--accent); color:var(--accent)}
+  .about-inner p{color:var(--muted); margin:0 0 16px; font-size:15px; text-align:left}
+  .hl{color:var(--accent2); font-weight:600; text-decoration:underline; text-decoration-color:rgba(167,139,250,0.35); text-underline-offset:3px}
+  .hl:hover{color:var(--accent)}
+  .about-inner .chips{justify-content:center; margin:22px 0 30px}
+  .about-inner .btn{margin:0 auto}
 
   /* journey timeline */
   .timeline{position:relative; padding-left:28px; border-left:2px solid var(--border)}
@@ -249,32 +267,58 @@
 <section id="about" style="background:var(--bg-soft)">
   <div class="wrap">
     <div class="kicker">About Me</div>
-    <h2 class="sec-title reveal">A quick summary</h2>
-    <div class="about-grid">
-      <div class="reveal">
-        <p>I'm a B.Tech CSE (Artificial Intelligence &amp; Machine Learning) graduate from CMR College of
-        Engineering and Technology, based in Hyderabad. I work across the stack — from designing scalable
-        Python microservices with FastAPI and Kafka, to extending ERPNext/Frappe with custom business logic,
-        to building ML pipelines for text classification.</p>
-        <p>As a Software Developer at ThinkCampus, I build loosely-coupled, high-performance distributed
-        applications using FastAPI, Flask, Docker, and AWS, with Apache Kafka handling high-volume event
-        streams for policy, claims, and notification workflows. I also extend ERPNext with custom Frappe
-        DocTypes, server scripts, and REST APIs — and I care about writing code that's easy for the next
-        person to understand and maintain, not just code that works.</p>
+    <h2 class="sec-title reveal">About <span class="grad-text">Me</span></h2>
+    <div class="about-card reveal">
+      <div class="about-inner">
+        <div class="role-line">Backend Developer &middot; ERPNext / Frappe Specialist &middot; AI &amp; ML Enthusiast</div>
+
+        <div class="avatar-wrap">
+          <div class="avatar-ring">
+            <svg viewBox="0 0 200 200" width="100%" height="100%" role="img" aria-label="Illustration of a developer working at a laptop">
+              <defs>
+                <linearGradient id="avatarGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#7dd3fc"/>
+                  <stop offset="100%" stop-color="#a78bfa"/>
+                </linearGradient>
+              </defs>
+              <circle cx="100" cy="100" r="100" fill="url(#avatarGrad)" opacity="0.16"/>
+              <circle cx="100" cy="70" r="30" fill="#0c1220" stroke="url(#avatarGrad)" stroke-width="3"/>
+              <path d="M55 165c4-30 26-46 45-46s41 16 45 46" fill="#0c1220" stroke="url(#avatarGrad)" stroke-width="3" stroke-linecap="round"/>
+              <rect x="72" y="120" width="56" height="34" rx="6" fill="#0c1220" stroke="url(#avatarGrad)" stroke-width="3"/>
+              <rect x="80" y="128" width="40" height="4" rx="2" fill="url(#avatarGrad)"/>
+              <rect x="80" y="136" width="26" height="4" rx="2" fill="url(#avatarGrad)"/>
+              <circle cx="145" cy="55" r="5" fill="#7dd3fc"/>
+              <circle cx="35" cy="90" r="4" fill="#f472b6"/>
+              <circle cx="150" cy="130" r="3.5" fill="#a78bfa"/>
+            </svg>
+          </div>
+          <div class="social-row">
+            <a class="soc" href="mailto:droopakreddy@gmail.com" aria-label="Email" title="Email"><i class='bx bx-envelope'></i></a>
+            <a class="soc" href="tel:+918008801626" aria-label="Phone" title="Phone"><i class='bx bx-phone'></i></a>
+            <a class="soc" href="https://github.com/roopak1234" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><i class='bx bxl-github'></i></a>
+            <a class="soc" href="Roopak_Reddy_Resume.pdf" target="_blank" rel="noopener" aria-label="Resume" title="Resume"><i class='bx bxs-file-pdf'></i></a>
+          </div>
+        </div>
+
+        <p>I'm a <a class="hl" href="#journey">B.Tech CSE (AI &amp; ML)</a> graduate from CMR College of
+        Engineering and Technology, Hyderabad, passionate about building reliable backend systems and
+        automating real business workflows. My primary expertise is <a class="hl" href="#skills">Python backend
+        development</a> — FastAPI, Flask, Kafka, Docker and AWS — where I design scalable, event-driven
+        microservices.</p>
+        <p>Alongside backend work, I have hands-on experience customizing <a class="hl" href="#skills">ERPNext
+        &amp; Frappe</a>, and applying <a class="hl" href="#skills">Machine Learning</a> to real-world problems
+        like text toxicity detection. I've shipped a production integration for
+        <a class="hl" href="#projects">eBao InsurTech</a>, built an <a class="hl" href="#projects">enterprise
+        e-commerce platform</a> on Frappe, and designed SDN-based load balancing for cloud data centers. I
+        enjoy learning new tools and building software that solves real problems.</p>
+
         <div class="chips">
           <span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Kafka</span>
           <span class="chip">Docker</span><span class="chip">AWS</span><span class="chip">ERPNext</span>
           <span class="chip">Frappe</span><span class="chip">PostgreSQL</span>
         </div>
-      </div>
-      <div class="fact-card reveal">
-        <dl>
-          <dt>Location</dt><dd>Hyderabad, India</dd>
-          <dt>Focus</dt><dd>Backend &amp; ERPNext Systems</dd>
-          <dt>Education</dt><dd>B.Tech CSE (AI &amp; ML), 2025</dd>
-          <dt>Email</dt><dd><a href="mailto:droopakreddy@gmail.com">droopakreddy@gmail.com</a></dd>
-          <dt>Phone</dt><dd>+91 8008801626</dd>
-        </dl>
+
+        <a class="btn btn-primary" href="#contact">Let's Connect <i class='bx bx-right-arrow-alt'></i></a>
       </div>
     </div>
   </div>
