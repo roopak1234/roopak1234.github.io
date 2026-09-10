@@ -257,7 +257,7 @@
         <a class="btn btn-ghost" href="https://github.com/roopak1234" target="_blank" rel="noopener"><i class='bx bxl-github'></i> GitHub</a>
       </div>
       <div class="stat-row">
-        <div class="stat"><b>4+</b><span>Projects Shipped</span></div>
+        <div class="stat"><b>8+</b><span>Projects Shipped</span></div>
         <div class="stat"><b>3+</b><span>Years of Experience</span></div>
         <div class="stat"><b>2025</b><span>B.Tech CSE (AI &amp; ML)</span></div>
       </div>
@@ -350,8 +350,10 @@
         &amp; Frappe</a>, and applying <a class="hl" href="#skills">Machine Learning</a> to real-world problems
         like text toxicity detection. I've shipped a production integration for
         <a class="hl" href="#projects">eBao InsurTech</a>, built an <a class="hl" href="#projects">enterprise
-        e-commerce platform</a> on Frappe, and designed SDN-based load balancing for cloud data centers. I
-        enjoy learning new tools and building software that solves real problems.</p>
+        e-commerce platform</a> and a <a class="hl" href="#projects">Shopify&ndash;ERPNext connector</a> on
+        Frappe, provisioned a <a class="hl" href="#projects">multi-tenant SaaS platform</a>, and designed
+        SDN-based load balancing for cloud data centers. I enjoy learning new tools and building software that
+        solves real problems.</p>
 
         <div class="chips">
           <span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Kafka</span>
@@ -438,6 +440,8 @@
           <span class="chip">DocTypes &amp; Server Scripts</span><span class="chip">REST APIs</span>
           <span class="chip">RBAC</span><span class="chip">Multi-Variant Inventory Schema Design</span>
           <span class="chip">Product Discovery &amp; Merchandising</span>
+          <span class="chip">Webhooks &amp; Third-Party Integrations</span>
+          <span class="chip">Multi-Tenant Site Provisioning</span>
         </div>
       </div>
       <div class="skill-card reveal">
@@ -483,6 +487,26 @@
         </div>
       </div>
       <div class="proj-card reveal">
+        <div class="proj-tag">ERPNext / Integration</div>
+        <h3>ERPNext&ndash;Shopify Order &amp; Inventory Sync</h3>
+        <p>Connector that auto-syncs orders, inventory, and customer data between ERPNext and Shopify via REST
+        API and webhooks, with bidirectional stock sync and a custom Integration Log DocType giving retry
+        logic and error visibility into failed webhook events.</p>
+        <div class="chips">
+          <span class="chip">Frappe</span><span class="chip">REST API</span><span class="chip">Webhooks</span>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-tag">ERPNext / SaaS Platform</div>
+        <h3>Multi-Tenant Site Provisioning Platform</h3>
+        <p>Multi-tenant app that provisions isolated tenant sites on demand via bench new-site automation,
+        with subscription tracking, a scheduled job that auto-suspends access on plan expiry, and an admin
+        dashboard for cross-tenant usage/health monitoring.</p>
+        <div class="chips">
+          <span class="chip">Frappe</span><span class="chip">Bench</span><span class="chip">Multi-Tenant</span>
+        </div>
+      </div>
+      <div class="proj-card reveal">
         <div class="proj-tag">ERPNext / Software Design</div>
         <h3>Enterprise E-Commerce Platform</h3>
         <p>Scalable e-commerce ecosystem on the Frappe Framework with custom product discovery, dynamic
@@ -496,9 +520,20 @@
         <h3>Real-Time Production Monitoring &amp; Smart Manufacturing Management System</h3>
         <p>Live shop-floor tracking of Work Orders, Job Cards, and Operations via ERPNext's Manufacturing
         module with real-time updates over Frappe's websocket events, automated material/inventory sync tied
-        to Stock Entries, and live dashboards with automated alerts for bottlenecks and quality rejections.</p>
+        to Stock Entries, live dashboards with automated alerts for bottlenecks and quality rejections, and a
+        workstation capacity-planning dashboard driven by a custom Machine Downtime DocType.</p>
         <div class="chips">
           <span class="chip">ERPNext</span><span class="chip">Frappe Realtime</span><span class="chip">Manufacturing</span>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-tag">Frappe / Standalone App</div>
+        <h3>Vehicle Rental Management</h3>
+        <p>Self-contained Frappe app with custom DocTypes, a Draft &rarr; Approved &rarr; Completed workflow,
+        and print formats for end-to-end vehicle booking and rental tracking, deployed on a personal bench
+        instance with role-based permissions.</p>
+        <div class="chips">
+          <span class="chip">Frappe</span><span class="chip">DocTypes</span><span class="chip">RBAC</span>
         </div>
       </div>
       <div class="proj-card reveal">
